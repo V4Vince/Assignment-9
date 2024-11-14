@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import JobCard from './App/JobPosts/JobCard'
+import { Container } from '@mui/material';
+
+import {jobPosts} from './Utilities/siteData'
+import { Route, Routes } from 'react-router-dom';
+import LoginPage from './App/Login/LoginPage';
+import { BrowserRouter } from 'react-router-dom';
+import MyNavbar from './App/Navbar/MyNavbar';
+import JobListing from './App/JobPosts/JobListing';
+import AboutPage from './App/About/AboutPage';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <MyNavbar />
+      <Routes>
+        <Route path="/home" element={<LoginPage />}/> {/* 👈 Renders at /app/ */}
+        <Route path="/job-listing" element={<JobListing />}/>
+        <Route path="/about" element={<AboutPage />} />  
+      </Routes>
     </div>
-  );
+
+  )
+  
 }
 
 export default App;
