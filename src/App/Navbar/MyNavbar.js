@@ -15,7 +15,7 @@ export default function MyNavbar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             size="large"
             edge="start"
             color="inherit"
@@ -23,7 +23,7 @@ export default function MyNavbar() {
             sx={{ mr: 2 }}
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
           {/* <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             News
           </Typography> */}
@@ -32,6 +32,18 @@ export default function MyNavbar() {
           component={NavLink} 
           className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : ""}>
             Job Listings
+          </Button>
+
+          <Button variant="outline" to="/company-showcase" 
+          component={NavLink} 
+          className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : ""}>
+            Campanies
+          </Button>
+
+          <Button variant="outline" to="/contact" 
+          component={NavLink} 
+          className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : ""}>
+            Contact
           </Button>
 
           <Button variant="outline" to="/About" 

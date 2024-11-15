@@ -8,6 +8,9 @@ import { BrowserRouter } from 'react-router-dom';
 import MyNavbar from './App/Navbar/MyNavbar';
 import JobListing from './App/JobPosts/JobListing';
 import AboutPage from './App/About/AboutPage';
+import ContactPage from './App/Contact/ContactPage'
+import CompanyShowCasePage from './App/Company/CompanyPage';
+import FavoritedJobList from './App/User/FavoriteJobList';
 
 function App() {
   return (
@@ -16,7 +19,10 @@ function App() {
       <Routes>
         <Route path="/home" element={<LoginPage />}/> {/* 👈 Renders at /app/ */}
         <Route path="/job-listing" element={<JobListing />}/>
-        <Route path="/about" element={<AboutPage />} />  
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />  
+        <Route path="/company-showcase" element={<CompanyShowCasePage />} />
+        <Route path="/user-favorited-page" element={<FavoritedJobList />} />
       </Routes>
     </div>
 
