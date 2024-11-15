@@ -2,9 +2,11 @@ import { Paper, Box, CardActions, Button, Typography } from "@mui/material";
 import React, { useState } from "react";
 import TextInput from '../Input/TextInput';
 import { userData } from '../../Utilities/siteData';
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-
+    const navigate = useNavigate()
+  
     const [loginForm, setLoginForm] = useState({email: '', password: ''})
 
     //Handle email change
@@ -25,14 +27,16 @@ const LoginPage = () => {
         //find user with email from the input
         const userExists = userData.find(user => user.email === loginForm.email)
         //if the user exists then check to see if the password from the input matches
+        //if matches then redirect to user favorite page
         if(userExists){
-            return userExists.password === loginForm.password ? console.log("YES CORRECT CREDENTIALS") : console.log("INCORRECT CREDENTIALS")
+            return userExists.password === loginForm.password ? navigate('/user-favorited-page', { state: { loggedIn: true, user: userExists}}) : console.log("INCORRECT CREDENTIALS")
         }
         //if there is no users that were found, then return
-        return console.log("EMAIL DOES NOT EXISTS");
+        console.log("NO USER FOUND");
+        
     }
 
-    //Login Form
+    //Login Form UI
     return (
         <Box height="70vh" display="flex" justifyContent="center" alignItems={'center'}>
             <Paper elevation={10} sx={{ maxWidth: 275, paddingX: 2, paddingBottom: 2}}>

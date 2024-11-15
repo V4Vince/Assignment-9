@@ -6,10 +6,13 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 
 export default function MyNavbar() {
    const navigate = useNavigate()
+   const location = useLocation()
+   console.log("MY NAV BAR STATE", location.state);
+   
   const handleLoginNavigation = () => navigate("/Home")
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -34,6 +37,14 @@ export default function MyNavbar() {
             Job Listings
           </Button>
 
+          {
+            location.state?.loggedIn && <Button sx={{ flexGrow: 1 }} variant="outline" to="/user-favorited-page" 
+            component={NavLink} 
+            className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : ""}>
+              Favorited Jobs
+            </Button> 
+          }
+
           <Button variant="outline" to="/company-showcase" 
           component={NavLink} 
           className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : ""}>
@@ -52,12 +63,12 @@ export default function MyNavbar() {
             About
           </Button>
 
-         <Button 
+          <Button 
           variant='outline' 
           to="/Home" 
           component={NavLink} 
           className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : ""}>
-            Login
+            { location.state?.loggedIn ? "Log Out" : "Log In"}
           </Button>
 
         </Toolbar>

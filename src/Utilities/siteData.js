@@ -53,7 +53,7 @@ export const jobPosts = [
 export const companyList = [
   {
     id: 1,
-    name: 'Microsoft',
+    name: 'Microsoft', 
   },
   {
     id: 2,
