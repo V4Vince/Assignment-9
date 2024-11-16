@@ -12,7 +12,7 @@ const ContactPage = () => {
               We'd love to hear from you! Please feel free to reach out to us with any questions, feedback, or 
               support inquiries.
             </Typography>
-            <form>
+            <>
               <TextField
                 label="Your Name"
                 variant="outlined"
@@ -37,11 +37,12 @@ const ContactPage = () => {
                 variant="contained"
                 color="primary"
                 type="submit"
+                onClick={() => {}}
                 sx={{ marginTop: '20px' }}
               >
                 Send Message
               </Button>
-            </form>
+            </>
             <Typography variant="body2" sx={{ marginTop: '20px', color: 'gray' }}>
               Alternatively, you can email us at support@jobportal.com or call us at +1-234-567-890.
             </Typography>

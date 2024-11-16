@@ -34,7 +34,7 @@ const LoginPage = () => {
 
 
     //handle login action
-    const handleLogin = () => {
+    const handleLogin = (e) => {
         //find user with email from the input
         const userExists = userData.find(user => user.email === loginForm.email)
         //if the user exists then check to see if the password from the input matches
