@@ -1,17 +1,20 @@
 import { Paper, Box, CardActions, Button, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TextInput from '../Input/TextInput';
 import { userData } from '../../Utilities/siteData';
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { useAuth } from "../../Utilities/authProvider";
 
 const LoginPage = () => {
     const navigate = useNavigate()
-  
+    //auth status and set auth status from Auth Context provider /Utilities/authProvider
+    const { isLoggedIn, actions} = useAuth();
+    //form state
     const [loginForm, setLoginForm] = useState({email: '', password: ''})
+    
 
     //Handle email change
     const handleEmailChange = (e) => {
-        // console.log("YOU TYPED: ", e.target.value);
         setLoginForm({...loginForm, email: e.target.value})
     }
 
@@ -21,15 +24,20 @@ const LoginPage = () => {
         setLoginForm({...loginForm, password: e.target.value})
     }
 
+
     //handle login action
     const handleLogin = () => {
-        console.log("LOGGING IN...", loginForm);
         //find user with email from the input
         const userExists = userData.find(user => user.email === loginForm.email)
         //if the user exists then check to see if the password from the input matches
         //if matches then redirect to user favorite page
         if(userExists){
-            return userExists.password === loginForm.password ? navigate('/user-favorited-page', { state: { loggedIn: true, user: userExists}}) : console.log("INCORRECT CREDENTIALS")
+            if (userExists.password === loginForm.password) {
+                actions.logUserIn()
+                return navigate('/user-favorited-page')
+            } else {
+                return console.log("INCORRECT CREDENTIALS")
+            } 
         }
         //if there is no users that were found, then return
         console.log("NO USER FOUND");
@@ -37,7 +45,7 @@ const LoginPage = () => {
     }
 
     //Login Form UI
-    return (
+     return (
         <Box height="70vh" display="flex" justifyContent="center" alignItems={'center'}>
             <Paper elevation={10} sx={{ maxWidth: 275, paddingX: 2, paddingBottom: 2}}>
                 <Typography textAlign={'center'} variant={"h5"} marginY={2}>Sign In</Typography>
