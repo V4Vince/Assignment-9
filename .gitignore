@@ -10,7 +10,7 @@
 
 # production
 /build
-/src/Utilities/credentials.js
+# /src/Utilities/credentials.js
 
 # misc
 .DS_Store
