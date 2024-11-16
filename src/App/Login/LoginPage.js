@@ -11,11 +11,19 @@ const LoginPage = () => {
     const { isLoggedIn, actions} = useAuth();
     //form state
     const [loginForm, setLoginForm] = useState({email: '', password: ''})
+    const [isValid, setIsValid] = useState(false)
     
 
     //Handle email change
     const handleEmailChange = (e) => {
         setLoginForm({...loginForm, email: e.target.value})
+        const emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        const isEmailValid = emailRegex.test(e.target.value)
+        console.log("IS EMAIL VALID: ", isEmailValid);
+        console.log("IS VALID: ", isValid);
+
+        
+        setIsValid(isEmailValid)
     }
 
     //Handle password change
@@ -49,7 +57,7 @@ const LoginPage = () => {
         <Box height="70vh" display="flex" justifyContent="center" alignItems={'center'}>
             <Paper elevation={10} sx={{ maxWidth: 275, paddingX: 2, paddingBottom: 2}}>
                 <Typography textAlign={'center'} variant={"h5"} marginY={2}>Sign In</Typography>
-                <TextInput textLabel="Email" type="email" onChange={handleEmailChange}/>
+                <TextInput textLabel="Email" type="email" onChange={handleEmailChange} error={!isValid}/>
                 <TextInput textLabel="Password" type="password" onChange={handlePasswordChange}/>
                 <CardActions display='flex'>
                     <Button fullWidth onClick={handleLogin}>Login</Button>

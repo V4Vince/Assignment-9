@@ -2,10 +2,28 @@ import JobCard from './JobCard'
 import { Container } from '@mui/material';
 
 import {jobPosts} from '../../Utilities/siteData'
+import { useFavorited } from '../../Utilities/favoriteProvider';
 
 function JobListing() {
 
-  const allPosts = jobPosts.map(job => <JobCard jobName={job.title} jobDescription={job.description}/>)
+  console.log("JOB LISTING");
+  
+
+  const { favoritedJobPosts, actions} = useFavorited();
+
+  const handleAddFavorite = job => {
+    actions.addFavorite(job)
+  }
+
+  const handleRemoveFavorite = job => {
+    actions.removeFavorite(job)
+  }
+
+  const allPosts = jobPosts.map(job => {
+    const isAlreadyFavorited = favoritedJobPosts.find(post => post.id === job.id);
+
+    return <JobCard jobPost={job} jobName={job.title} jobDescription={job.description} handleAddFavoriteClick={handleAddFavorite} favorited={isAlreadyFavorited}/>
+  })
 
   return (
     <div>

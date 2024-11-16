@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './Utilities/authProvider';
+import { FavoritedProvider } from './Utilities/favoriteProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -14,7 +15,9 @@ root.render(
   <React.StrictMode>
       <BrowserRouter>
         <AuthProvider>
-          <App />
+          <FavoritedProvider>
+            <App />
+          </FavoritedProvider>
         </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

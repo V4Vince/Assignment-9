@@ -52,7 +52,13 @@ export default function MyNavbar() {
           className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : ""}>
             Contact
           </Button>
-          
+
+          <Button variant="outline" to="/about" 
+          component={NavLink} 
+          className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : ""}>
+            About
+          </Button>
+
           {/* Log in/log out button depending on loggeds in status */}
           {
             isLoggedIn ? <Button variant="outline" 
