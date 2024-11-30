@@ -7,5 +7,18 @@ export const fetchImagesFromAPI = async () => {
     console.log("RESPONSE", response);
 
     return response.data
-    
 } 
+
+export const createNewUser = async (data) => {
+    const response = await axios.post(`http://localhost:3000/user/create`, data)
+    console.log("CREATE NEW USER RESPONSE", response);
+
+    return response.data
+}
+
+export const signInUser = async (credentials) => {
+    const response = await axios.post(`http://localhost:3000/user/sign-in`, credentials)
+    console.log("SIGN IN USER RESPONSE", response);
+
+    return response.data
+}

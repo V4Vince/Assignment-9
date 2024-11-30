@@ -3,15 +3,16 @@ import React, { createContext, useContext, useState} from "react";
 const AuthContext = createContext()
 
 const AuthProvider = ({children}) => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [isLoggedIn, setIsLoggedIn] = useState({loggedIn: false, user: null})
 
     const actions = {
-        logUserIn: () => {
-            setIsLoggedIn(true)
+        logUserIn: (user) => {
+            user ?  setIsLoggedIn({loggedIn: true, user}) : setIsLoggedIn({loggedIn: false, user: null})
+           
         },
 
         logUserOut: () => {
-            setIsLoggedIn(false)
+            setIsLoggedIn({loggedIn: false, user: null})
         }
     }
 

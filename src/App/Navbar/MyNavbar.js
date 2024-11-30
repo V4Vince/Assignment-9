@@ -61,7 +61,7 @@ export default function MyNavbar() {
 
           {/* Log in/log out button depending on loggeds in status */}
           {
-            isLoggedIn ? <Button variant="outline" 
+            isLoggedIn.loggedIn ? <Button variant="outline" 
             className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : ""} onClick={actions.logUserOut}>
               Log Out
             </Button> : <Button variant="outline" to="/Home" 

@@ -6,7 +6,7 @@ const PrivateRoute = ({children, redirectTo }) => {
 
     //If the user is logged in, then allow navigation
     //If user is not logged in, then redirect to sign in page
-    return isLoggedIn ? {...children} : <Navigate to='/home'  /> 
+    return isLoggedIn.isLoggedIn ? {...children} : <Navigate to='/home'  /> 
 }
 
 export default PrivateRoute
