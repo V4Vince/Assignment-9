@@ -71,7 +71,7 @@ export default function MyNavbar() {
             isLoggedIn.loggedIn ? <Button variant="outline" 
             className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : ""} onClick={handleLogOut}>
               Log Out
-            </Button> : <Button variant="outline" to="/Home" 
+            </Button> : <Button variant="outline" to="/home" 
           component={NavLink} 
           className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : ""}>
             Log In

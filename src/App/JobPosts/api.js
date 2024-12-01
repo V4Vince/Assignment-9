@@ -4,7 +4,7 @@ export const getAllJobPosts = async () => {
     try {
         const res = await siteAxios.get('/jobs')
 
-        console.log("RESPONSE DATA IN API", res.data)
+        // console.log("RESPONSE DATA IN API", res.data)
         return res.data.jobs
     } catch (error) {
         console.log(error)

@@ -7,25 +7,37 @@ const JobsProvider = ({children}) => {
     const [jobPosts, setJobPosts] = useState({allJobs:[], favoritedJobs: []})
     const {isLoggedIn, setIsLoggedIn} = useAuth()
 
+    const currentUserFavoriteJobsIds = isLoggedIn.user ? isLoggedIn.user.favoritedJobs.map(job => job._id) : []
+    // const currentUser = isLoggedIn.user ? isLoggedIn.user : null
+
     const actions = {
         updateFavoritedJobs: (jobs) => {
             setJobPosts({...jobPosts, favoritedJobs: jobs})
-            // console.log("ADD FAVORITE - current state: ", favoritedJobPosts);
+            console.log("ADD FAVORITE - current state: ", jobPosts);
         },
         removeFavorite: (job) => {
-            setJobPosts({...jobPosts, favoritedJobs: jobPosts.favoritedJobs.filter(post => post.id !== job.id)})
+            const filtered = jobPosts.favoritedJobs.filter(post => post._id !== job._id)
+            console.log("FILTERED: ", filtered);
+            
+            setJobPosts({...jobPosts, favoritedJobs: filtered})
+            console.log("AFTER FILTERED: ", jobPosts);
+
         },
         loadFavoritedJobs: () => {
             const currentUser = isLoggedIn.user
             if(!currentUser) setJobPosts({...jobPosts, favoritedJobs: []})
-            const favoritedJobs = jobPosts.filter(job => currentUser.favoritedJobs.includes(job._id))
-
-            setJobPosts({...jobPosts, favoritedJobs: favoritedJobs})
+            setJobPosts({...jobPosts, favoritedJobs: currentUser.favoritedJobs})
         },
         loadJobs: (jobs) => {
-            console.log("LOAD JOBS: ", jobs);
-            
+            const currentUser = isLoggedIn?.user
             setJobPosts({...jobPosts, allJobs: jobs})
+
+            
+            // if(currentUser) {
+            //     setJobPosts({...jobPosts, favoritedJobs: currentUser.favoritedJobs})
+            // }
+
+                
         },
         resetFavoriteJobs: () => {
             setJobPosts({...jobPosts, favoritedJobs: []})

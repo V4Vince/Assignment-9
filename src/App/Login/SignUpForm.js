@@ -8,6 +8,7 @@ function SignUpForm({signUserUp, isEmailValid, isPasswordValid, handleNavigateTo
     const [isValid, setIsValid] = useState({email: false, confirmPassword: false})
     
     const  handleChange = (e, field) => {
+        
         setSignUpForm({...signUpForm, [field]: e.target.value})
 
         if(field === 'email'){
@@ -22,11 +23,16 @@ function SignUpForm({signUserUp, isEmailValid, isPasswordValid, handleNavigateTo
 
     }
 
-    const handleSubmit = () => signUserUp(signUpForm)
+    const handleSubmit = (e) => {
+        e.prevantDefault()
+        signUserUp(signUpForm)
+    }
 
     return (
+        <form onsubmit={handleSubmit}>
     <Paper elevation={10} sx={{ maxWidth: 275, paddingX: 2, paddingBottom: 2}}>
-                <Typography textAlign={'center'} variant={"h5"} marginY={2}>Sign Up for an account</Typography>
+               
+               <Typography textAlign={'center'} variant={"h5"} marginY={2}>Sign Up for an account</Typography>
                 <TextInput textLabel="Fullname" value={signUpForm.fullName} type="text" onChange={e => handleChange(e, 'fullName')}/>
 
                 <TextInput textLabel="Email" type="email" value={signUpForm.email} onChange={e => handleChange(e, 'email')} error={!isValid.email}/>
@@ -38,7 +44,9 @@ function SignUpForm({signUserUp, isEmailValid, isPasswordValid, handleNavigateTo
                     <Button fullWidth onClick={handleSubmit}>Sign Up</Button>
                     <Button fullWidth onClick={handleNavigateToSignInPage}>Sign in instead</Button>
                 </CardActions>
+               
             </Paper>
+            </form>
   )
 }
 

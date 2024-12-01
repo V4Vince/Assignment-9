@@ -12,11 +12,15 @@ const FavoriteJobList = () => {
     console.log("favorites job lists: ", jobPosts);
     const navigate = useNavigate()
 
-    const handleRemoveFavorite = async(jobPost) => {
+    const handleRemoveFavorite = (jobPost) => {
         const currentUser = isLoggedIn.user
-        const favoritedJobs = {favoritedJobs: currentUser.favoritedJobs.filter(post => post._id !== jobPost._id)}
-        updateUserFavoriteJobs(currentUser._id, favoritedJobs).then((data) => jobActions.updateFavoritedJobs(data.favoritedJobs)
-        )
+        console.log("FAVORITED JOBS BEFORE REMOVAL: ", jobPosts.favoritedJobs);
+
+        jobActions.removeFavorite(jobPost)
+        console.log("FAVORITED JOBS AFTER REMOVAL: ", jobPosts.favoritedJobs);
+        
+        updateUserFavoriteJobs(currentUser._id, {favoritedJobs: jobPosts.favoritedJobs})
+        
       }
 
 
@@ -38,6 +42,7 @@ const FavoriteJobList = () => {
             }
         }
         getAlljobs()
+
     }, [])
     
     return (
@@ -45,7 +50,7 @@ const FavoriteJobList = () => {
             <h1>Favorited Jobs</h1>
     
             {
-                jobPosts?.favoritedJobs?.map(post => <JobCard favorited isSignedIn={isLoggedIn.loggedIn} jobPost={post} jobName={post.title} jobDescription={post.description} handleRemoveFavoriteClick={handleRemoveFavorite} favorited/>)
+                jobPosts?.favoritedJobs?.map(post => <JobCard favorited isSignedIn={isLoggedIn.loggedIn} jobPost={post} jobName={post.title} jobDescription={post.description} handleRemoveFavoriteClick={handleRemoveFavorite}/>)
             }
         </div>
     )
