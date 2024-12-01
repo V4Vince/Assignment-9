@@ -17,7 +17,7 @@ const LoginPage = () => {
     //Function to create a new user
     const handleSignUp = async (data) => {
         createNewUser(data).then(res => {
-            actions.logUserIn(res.data)
+            actions.logUserIn(res.user)
         })
     }
     //Function to sign in a user

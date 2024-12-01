@@ -7,10 +7,17 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { NavLink } from "react-router-dom";
 import { useAuth } from '../../Utilities/authProvider';
+import { useJobs } from '../../Utilities/jobsProvider';
 
 export default function MyNavbar() {
 
   const {isLoggedIn, actions} = useAuth()
+  const {jobPosts, jobActions} = useJobs()
+
+  const handleLogOut = () => {
+    actions.logUserOut()
+    jobActions.resetFavoriteJobs()
+  }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -62,7 +69,7 @@ export default function MyNavbar() {
           {/* Log in/log out button depending on loggeds in status */}
           {
             isLoggedIn.loggedIn ? <Button variant="outline" 
-            className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : ""} onClick={actions.logUserOut}>
+            className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : ""} onClick={handleLogOut}>
               Log Out
             </Button> : <Button variant="outline" to="/Home" 
           component={NavLink} 

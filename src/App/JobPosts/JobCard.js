@@ -8,7 +8,6 @@ import Typography from '@mui/material/Typography';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useFavorited } from '../../Utilities/favoriteProvider';
-import { companyList } from '../../Utilities/siteData';
 import { Link } from 'react-router-dom';
 const bull = (
   <Box
@@ -19,9 +18,11 @@ const bull = (
   </Box>
 );
 
-export default function JobCard({jobName, jobDescription, link, jobPost, handleAddFavoriteClick, handleRemoveFavoriteClick, favorited}) {
- 
-  const company = companyList.find(company => company.id === jobPost.id)
+
+export default function JobCard({company, isSignedIn, jobName, jobDescription, link, jobPost, handleAddFavoriteClick, handleRemoveFavoriteClick, favorited}) { 
+  
+  const displayFavoriteButton = favorited ? <FavoriteIcon onClick={() => handleRemoveFavoriteClick(jobPost)}/> : <FavoriteBorderIcon onClick={() => handleAddFavoriteClick(jobPost)}/>
+    
   return (
     <Card sx={{ minWidth: 275, marginTop: 2 }}>
       <CardContent>
@@ -31,7 +32,7 @@ export default function JobCard({jobName, jobDescription, link, jobPost, handleA
         <Typography variant="h5" component="div">
           {jobName}
         </Typography>
-        <Typography variant="subtitle" component={Link} to={`/company-showcase-details/${company?.id}`} state={{currentCompanyData: company}}>
+        <Typography variant="subtitle" component={Link} to={`/company-showcase-details/${company?._id}`} state={{currentCompanyData: company}}>
           {company?.name}
         </Typography>
         <Typography sx={{ color: 'text.secondary', mt:2, mb: 1 }}>Job Description</Typography>
@@ -41,12 +42,12 @@ export default function JobCard({jobName, jobDescription, link, jobPost, handleA
       </CardContent>
       <CardContent>
         <Box>Required Skills: {jobPost.requiredSkills.map(skill => <p style={{display: 'inline-block', marginRight: 8}}>{skill}</p>)}</Box>
-        <Box sx={{fontWeight: 500}}>Salary: {jobPost.salary}</Box>
+        <Box sx={{fontWeight: 500}}>Salary: ${jobPost.salary}</Box>
       </CardContent>
       <CardActions sx={{display: 'flex', justifyContent: 'space-between'}}>
         <Button size="small" href={link}>APPLY NOW</Button>
         {
-          favorited ? <FavoriteIcon onClick={() => handleRemoveFavoriteClick(jobPost)}/> : <FavoriteBorderIcon onClick={() => handleAddFavoriteClick(jobPost)}/>
+          isSignedIn && displayFavoriteButton
         }
         
       </CardActions>

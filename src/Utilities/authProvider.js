@@ -26,3 +26,5 @@ const useAuth = () => {
 }
 
 export { AuthProvider, useAuth}
+
+//Figure out why the app keeps refreshing exceeding the maximum number of re-renders

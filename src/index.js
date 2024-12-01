@@ -8,6 +8,8 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './Utilities/authProvider';
 import { FavoritedProvider } from './Utilities/favoriteProvider';
+import { CompaniesProvider } from './Utilities/companiesProvider';
+import { JobsProvider } from './Utilities/jobsProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -15,9 +17,11 @@ root.render(
   <React.StrictMode>
       <BrowserRouter>
         <AuthProvider>
-          <FavoritedProvider>
-            <App />
-          </FavoritedProvider>
+          <CompaniesProvider>
+            <JobsProvider>
+              <App />
+            </JobsProvider>
+          </CompaniesProvider>
         </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
