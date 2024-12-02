@@ -7,9 +7,6 @@ import reportWebVitals from './reportWebVitals';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './Utilities/authProvider';
-import { FavoritedProvider } from './Utilities/favoriteProvider';
-import { CompaniesProvider } from './Utilities/companiesProvider';
-import { JobsProvider } from './Utilities/jobsProvider';
 import { Provider } from 'react-redux';
 import store from './store';
 
