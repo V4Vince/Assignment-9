@@ -19,22 +19,12 @@ export default function MyNavbar() {
     jobActions.resetFavoriteJobs()
   }
 
+  console.log("LOGGED IN STATUS: ", isLoggedIn)
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          {/* <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton> */}
-          {/* <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
-          </Typography> */}
 
           <Button sx={{ flexGrow: 1 }} variant="outline" to="/Job-Listing" 
           component={NavLink} 
@@ -42,11 +32,20 @@ export default function MyNavbar() {
             Job Listings
           </Button>
 
-          <Button sx={{ flexGrow: 1 }} variant="outline" to="/user-favorited-page" 
+          {/* <Button sx={{ flexGrow: 1 }} variant="outline" to="/user-favorited-page" 
             component={NavLink} 
             className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : ""}>
               Favorited Jobs
-            </Button> 
+            </Button>  */}
+            {
+              isLoggedIn?.user?.type === 'admin' && 
+              <Button 
+                sx={{ flexGrow: 1 }} variant="outline" to="/employees" 
+                component={NavLink} 
+                className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : ""}>
+                  Employees
+              </Button>
+            } 
 
           <Button variant="outline" to="/company-showcase" 
           component={NavLink} 

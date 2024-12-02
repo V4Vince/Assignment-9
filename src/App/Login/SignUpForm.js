@@ -24,7 +24,7 @@ function SignUpForm({signUserUp, isEmailValid, isPasswordValid, handleNavigateTo
     }
 
     const handleSubmit = (e) => {
-        e.prevantDefault()
+        e.preventDefault()
         signUserUp(signUpForm)
     }
 
