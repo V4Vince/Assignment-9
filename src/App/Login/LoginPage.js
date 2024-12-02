@@ -30,7 +30,7 @@ const LoginPage = () => {
 
     //If user is logged in, redirect to user-favorited-page
     if(isLoggedIn.loggedIn){
-        return <Navigate to='/user-favorited-page'/>
+        return <Navigate to='/job-listing'/>
     }
 
 
