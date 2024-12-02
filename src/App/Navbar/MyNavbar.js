@@ -7,19 +7,15 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { NavLink } from "react-router-dom";
 import { useAuth } from '../../Utilities/authProvider';
-import { useJobs } from '../../Utilities/jobsProvider';
 
 export default function MyNavbar() {
 
   const {isLoggedIn, actions} = useAuth()
-  const {jobPosts, jobActions} = useJobs()
 
   const handleLogOut = () => {
     actions.logUserOut()
-    jobActions.resetFavoriteJobs()
+    // jobActions.resetFavoriteJobs()
   }
-
-  console.log("LOGGED IN STATUS: ", isLoggedIn)
 
   return (
     <Box sx={{ flexGrow: 1 }}>

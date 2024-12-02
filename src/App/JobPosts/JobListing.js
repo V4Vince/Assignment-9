@@ -2,49 +2,51 @@ import JobCard from './JobCard'
 import { Button, Container } from '@mui/material';
 
 // import {jobPosts} from '../../Utilities/siteData'
-import { useFavorited } from '../../Utilities/favoriteProvider';
 import { useEffect, useState } from 'react';
 import { getAllJobPosts, updateUserFavoriteJobs } from './api';
-import { useJobs } from '../../Utilities/jobsProvider';
 import { useAuth } from '../../Utilities/authProvider';
-import { useCompanies } from '../../Utilities/companiesProvider';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadJobPosts } from './jobPostSlice';
 
 function JobListing() {
   const {isLoggedIn, setIsLoggedIn} = useAuth()
-  const {jobPosts, jobActions} = useJobs()
-  const {companies, a} = useCompanies()
-
+  //select all job posts from the store
+  const jobPosts = useSelector(state => state.jobPostsSlice.jobPosts)
+  //select all companies from the store
+  const companies = useSelector(state => state.companiesSlice.companies)
+  const dispatch = useDispatch()
 
   const handleAddFavorite = async(jobPost) => {
-    const currentUser = isLoggedIn.user
-    const favoritedJobs = {favoritedJobs: [...currentUser.favoritedJobs, jobPost]}
-    console.log("CONCAT FAVORITE JOBS", favoritedJobs);
+  //   const currentUser = isLoggedIn.user
+  //   const favoritedJobs = {favoritedJobs: [...currentUser.favoritedJobs, jobPost]}
+  //   console.log("CONCAT FAVORITE JOBS", favoritedJobs);
     
-    updateUserFavoriteJobs(currentUser._id, favoritedJobs)
-      .then((data) => {
-        console.log("DATA IN LIST", data);
+  //   updateUserFavoriteJobs(currentUser._id, favoritedJobs)
+  //     .then((data) => {
+  //       console.log("DATA IN LIST", data);
         
-        jobActions.updateFavoritedJobs(data.favoritedJobs)
-      }
-  )
+  //       jobActions.updateFavoritedJobs(data.favoritedJobs)
+  //     }
+  // )
   }
 
   const handleRemoveFavorite = async(jobPost) => {
-    const currentUser = isLoggedIn.user
-    const favoritedJobs = {favoritedJobs: currentUser.favoritedJobs.filter(post => post._id !== jobPost._id)}
-    updateUserFavoriteJobs(currentUser._id, favoritedJobs).then((data) => jobActions.updateFavoritedJobs(data.favoritedJobs)
-    )
+    // const currentUser = isLoggedIn.user
+    // const favoritedJobs = {favoritedJobs: currentUser.favoritedJobs.filter(post => post._id !== jobPost._id)}
+    // updateUserFavoriteJobs(currentUser._id, favoritedJobs).then((data) => jobActions.updateFavoritedJobs(data.favoritedJobs)
+    // )
   }
 
   //when user logs in, the user favoritedJobs are loaded and all jobs are loaded
   // when user updated their favoritedJobs, the jobs are updated on the server but the provider returns the old favoritedJobs from the current user BEFORE the server saves
 
   useEffect(() => {
+    //get all job posts from the server
     const getJobs = async () => {
       try {
         const allJobs = await getAllJobPosts()
-        jobActions.loadJobs(allJobs)
+        dispatch(loadJobPosts(allJobs))
       } catch (error) {
         console.log(error)
       }
@@ -53,12 +55,11 @@ function JobListing() {
     getJobs()
   }, [])
 
-  const allPosts = jobPosts?.allJobs?.map(job => {
+  const allPosts = jobPosts?.map(job => {
     // const isAlreadyFavorited = favoritedJobPosts.find(post => post.id === job.id);
-    let company = companies.find(company => company._id === job.companyId)
-    let favorited = jobPosts.favoritedJobs.map(fav => fav._id).includes(job._id)
-      
-    return <JobCard favorited={favorited} company={company} isSignedIn={isLoggedIn.loggedIn} jobPost={job} jobName={job.title} link={job.applyLink} jobDescription={job.description} handleAddFavoriteClick={handleAddFavorite} handleRemoveFavoriteClick={handleRemoveFavorite}/>
+    // let company = companies.find(company => company._id === job.companyId)
+    // let favorited = jobPosts?.map(fav => fav._id).includes(job._id)
+    return <JobCard  isSignedIn={isLoggedIn.loggedIn} jobPost={job} jobName={job.title} link={job.applyLink} jobDescription={job.description} handleAddFavoriteClick={handleAddFavorite} handleRemoveFavoriteClick={handleRemoveFavorite}/>
   })
 
   return (

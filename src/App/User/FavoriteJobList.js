@@ -1,25 +1,25 @@
 import React, { useContext, useEffect } from 'react';
 import JobCard from '../JobPosts/JobCard'
-import { useJobs } from '../../Utilities/jobsProvider';
 import { getAllJobPosts, updateUserFavoriteJobs } from '../JobPosts/api';
 import { useAuth } from '../../Utilities/authProvider';
 import { useNavigate } from 'react-router-dom';
 
 const FavoriteJobList = () => {
 
-    const { jobPosts, jobActions } = useJobs();
+    const jobPosts = []
+
+    // const { jobPosts, jobActions } = useJobs();
     const { isLoggedIn, setIsLoggedIn } = useAuth();
-    console.log("favorites job lists: ", jobPosts);
     const navigate = useNavigate()
 
     const handleRemoveFavorite = (jobPost) => {
-        const currentUser = isLoggedIn.user
-        console.log("FAVORITED JOBS BEFORE REMOVAL: ", jobPosts.favoritedJobs);
+        // const currentUser = isLoggedIn.user
+        // console.log("FAVORITED JOBS BEFORE REMOVAL: ", jobPosts.favoritedJobs);
 
-        jobActions.removeFavorite(jobPost)
-        console.log("FAVORITED JOBS AFTER REMOVAL: ", jobPosts.favoritedJobs);
+        // jobActions.removeFavorite(jobPost)
+        // console.log("FAVORITED JOBS AFTER REMOVAL: ", jobPosts.favoritedJobs);
         
-        updateUserFavoriteJobs(currentUser._id, {favoritedJobs: jobPosts.favoritedJobs})
+        // updateUserFavoriteJobs(currentUser._id, {favoritedJobs: jobPosts.favoritedJobs})
         
       }
 
@@ -36,7 +36,7 @@ const FavoriteJobList = () => {
         const getAlljobs = async () => {
             try {
                 const allJobs = await getAllJobPosts()
-                jobActions.loadJobs(allJobs)
+                // jobActions.loadJobs(allJobs)
             } catch (error) {
                 console.log(error)
             }

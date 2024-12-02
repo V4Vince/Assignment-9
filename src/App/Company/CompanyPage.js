@@ -4,11 +4,14 @@ import { Box, Button } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAllCompanies } from './api';
 import { useAuth } from '../../Utilities/authProvider';
-import { useCompanies } from '../../Utilities/companiesProvider';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadCompanies } from './companySlice';
 
 const CompanyPage = () => {
     const {isLoggedIn, setIsLoggedIn} = useAuth()
-    const {companies, actions} = useCompanies()
+    //selects the companies from the store
+    const companies = useSelector(state => state.companiesSlice.companies)
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
         //handles navigating to company details page and passes the company data into state
@@ -17,15 +20,16 @@ const CompanyPage = () => {
     }
     
     useEffect(() => {
+        //fetches all companies from the database and dispatches the loadCompanies action
         const getCompanies = async () => {
             try {
                 const allCompanies = await getAllCompanies()
-                actions.loadCompanies(allCompanies)
+                dispatch(loadCompanies(allCompanies))
             } catch (error) {
                 console.log(error)
             }
         }
-
+        //calls the getCompanies function
         getCompanies()
     }, [])
     

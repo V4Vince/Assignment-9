@@ -10,20 +10,20 @@ import { AuthProvider } from './Utilities/authProvider';
 import { FavoritedProvider } from './Utilities/favoriteProvider';
 import { CompaniesProvider } from './Utilities/companiesProvider';
 import { JobsProvider } from './Utilities/jobsProvider';
+import { Provider } from 'react-redux';
+import store from './store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
+    <Provider store={store}>
       <BrowserRouter>
         <AuthProvider>
-          <CompaniesProvider>
-            <JobsProvider>
-              <App />
-            </JobsProvider>
-          </CompaniesProvider>
+          <App />
         </AuthProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
 
